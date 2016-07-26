@@ -24,4 +24,5 @@ before_script:
     npm run build:linux32;
     else npm run build:linux64;
     fi;
-
+  - zip -rq dist.zip dist
+script: node build/upload.js
