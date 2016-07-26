@@ -17,7 +17,7 @@ let pkg = require(path.join(weflowPath, 'package.json'));
 
 let distName = `WeFlow-${pkg.version}-${process.platform}-${process.arch}.zip`;
 
-if(process.env.ARCH == 'x86')
+if(process.env.TARGET_ARCH == 'ia32')
     distName = `WeFlow-${pkg.version}-linux-ia32.zip`;
 
 if (process.env.ACCESS_KEY && process.env.SECRET_KEY) {
