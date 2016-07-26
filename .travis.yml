@@ -5,7 +5,11 @@ cache:
 node_js:
   - "5.10.0"
 env:
-  - CXX=g++-4.8
+  global:
+    - CXX=g++-4.8
+  matrix:
+    - TRAVIS_NODE_VERSION="5"
+    - TRAVIS_NODE_VERSION="5" ARCH="x86"
 addons:
   apt:
     sources:
@@ -14,6 +18,8 @@ addons:
     - g++-4.8
 before_script:
   - npm install
-  - npm run build:linux64
-  - zip -rq dist.zip dist
-script: node build/upload.js
+  - if [[ "$ARCH" == "x86" ]]; then
+    npm run build:linux32;
+    else npm run build:linux64;
+    fi;
+
