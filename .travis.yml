@@ -18,8 +18,6 @@ osx_image: xcode7
 matrix:
   include:
     - os: linux
-      env: TARGET_ARCH=arm
-    - os: linux
       env: TARGET_ARCH=ia32
   allow_failures:
     - os: osx
@@ -33,8 +31,8 @@ before install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
 before_script:
   - npm install
-  - if [[ "$TARGET_ARCH" == "arm" ]]; then npm run build:linux64; fi;
+  - if [[ "$TARGET_ARCH" == "x64" ]]; then npm run build:linux64; fi;
   - if [[ "$TARGET_ARCH" == "ia32" ]]; then npm run build:linux32; fi;
-  - if [[ "$TARGET_ARCH" == "x64" ]]; then npm run build:mac; fi;
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then npm run build:mac; fi;
   - zip -rq dist.zip dist
 script: node build/upload.js
